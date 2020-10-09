@@ -23,34 +23,48 @@
 </nav>
 
 <!-- search for city  -->
-<div class="container ml-0">
-    <div class="row">
-    <div class="col-4 bg-light">
-        <p class="search-header my-2">Search For A City</p>
-        <div class="input-group mb-2">
-        <input
-            id="city-input"
-            type="text"
-            class="form-control"
-            placeholder="Enter City Name"
-            aria-label="Enter City Name"
-        />
-        <div class="input-group-append">
-            <button class="btn btn-info" type="button" id="search-button">
-            <i class="fas fa-magic"></i>           
-            </button>
+<div class="container-fluid row">
+    <div class="col-3 left_div justify-content-center pt-3 bg-light">
+        <div class="search-div mb-4">
+            <H5 class="pt-2 pl-3">Search by City</H5>
+            <div class="input-group mb-2">
+                <input
+                    id="city-input"
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter City Name"
+                    aria-label="Enter City Name"
+                />
+                <div class="input-group-append">
+                    <button class="btn btn-info" type="button" id="search-button">
+                    <i class="fas fa-magic"></i>           
+                    </button>
+                </div>
+                </div>
+                <button class="btn btn-info mb-3" type="button" id="clear-history">
+                Clear History
+                </button>
+                <form id="history"></form>
         </div>
-        </div>
-        <button class="btn btn-info mb-3" type="button" id="clear-history">
-        Clear History
-        </button>
-        <form id="history"></form>
-    </div>
     </div>
 </div>
 
 <!-- city info container -->
-<div></div>
+<div class="todaysWeather col-9 pt-3">
+    <div class="bg-light p-3">
+            <h2 class="justify-content-center text-dark" id="nameOfCity"></h2>
+            <div class="row">
+                <div class="col-6">
+                    <p id="todayTemp"></p>
+                    <p id="todayHumidity"></p>
+                    <p id="todayWindSpeed"></p>
+                    <img id="todayIconDiv" src="">
+                </div>
+            </div> 
+    </div>
+</div>
+
+
 
 <body>
     <script
