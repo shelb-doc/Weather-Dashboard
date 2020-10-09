@@ -6,38 +6,51 @@
     <title>Weather Report Dashboard</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://kit.fontawesome.com/84a00ed851.js" crossorigin="anonymous"></script>
     <link
     rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
     crossorigin="anonymous"
     />
+
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
+
 <!-- Navigation -->
 <nav class="navbar navbar-light bg-info">
-    <a class="navbar-brand">Weather Report Dashboard</a>
+    <h1 class="navbar-brand">Weather Report Dashboard</h1>
 </nav>
+
 <!-- search for city  -->
 <div class="container ml-0">
     <div class="row">
-        <div class="col-4 bg-light">
-            <p class="search-header my-2">Search For A City</p>
-            <div class="input-group mb-2">
-                <input id="city-input" type="text" class="form-control" placeholder="Enter City Name" aria-label="Enter City Name">
-                <div class="input-group-append">
-                    <button class="btn btn-info" type="button" id="search-button">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-            <button class="btn btn-info mb-3" type="button" id="clear-history">Clear History</button>
-            <form id="history"></form>
+    <div class="col-4 bg-light">
+        <p class="search-header my-2">Search For A City</p>
+        <div class="input-group mb-2">
+        <input
+            id="city-input"
+            type="text"
+            class="form-control"
+            placeholder="Enter City Name"
+            aria-label="Enter City Name"
+        />
+        <div class="input-group-append">
+            <button class="btn btn-info" type="button" id="search-button">
+            <i class="fas fa-magic"></i>           
+            </button>
         </div>
+        </div>
+        <button class="btn btn-info mb-3" type="button" id="clear-history">
+        Clear History
+        </button>
+        <form id="history"></form>
+    </div>
     </div>
 </div>
 
-
+<!-- city info container -->
+<div></div>
 
 <body>
     <script
