@@ -37,7 +37,7 @@ console.log("This is loading!");
       $("#humidity").text("Humidity: " + response.main.humidity + "%" );
       
       
-      var iconUrl = "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+      var iconUrl = "https://api.openweathermap.org/img/w/" + response.weather[0].icon + ".png";
       var tempF = kToF(response.main.temp);
       var heatIndex = kToF(response.main.feels_like);
       
