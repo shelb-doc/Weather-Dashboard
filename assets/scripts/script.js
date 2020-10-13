@@ -33,22 +33,20 @@ console.log("This is loading!");
       
       $("#city").html("<h1>" + response.name + "</h1>");
       
-      $("#wind").text("Wind Speed: " + response.wind.speed + "MPH");
-      $("#humidity").text("Humidity: " + response.main.humidity);
+      $("#wind").text("Wind Speed: " + response.wind.speed + " MPH");
+      $("#humidity").text("Humidity: " + response.main.humidity + "%" );
       
       
-      var iconurl = "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+      var iconUrl = "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
       var tempF = kToF(response.main.temp);
       var heatIndex = kToF(response.main.feels_like);
       
-      $("#tempF").text("Temperature (F) " + tempF.toFixed(2));
-      $("#heatIndex").text("Heat Index: " + heatIndex.toFixed(2));
-      $("#iconImg").attr("src", iconurl);
-
+      $("#tempF").text("Temperature: " + tempF.toFixed(2) + " F");
+      $("#heatIndex").text("Heat Index: " + heatIndex.toFixed(2) + " F");
+      $("#iconImg").attr("src", iconUrl);
       
-
         console.log("Wind Speed: " + response.wind.speed);
-        console.log(iconurl);
+        console.log(iconUrl);
         console.log("Humidity: " + response.main.humidity);
         console.log("longitude: " + response.coord.lon);
         console.log("latitude: " + response.coord.lat);

@@ -1,4 +1,9 @@
+body{
+    font-family: 'Gayathri', sans-serif;
+}
+
 .navbar-brand{
+    font-family: 'Gayathri', sans-serif;
     margin-left: auto;
     margin-right: auto;
     font-size: 30px;
