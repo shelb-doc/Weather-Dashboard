@@ -1,10 +1,8 @@
 $(document).ready(function () {
   console.log("This is loading!");
-  // DOM VARIABLES
-
   // JS VARIABLES
   var APIKey = "a06ddccb5d8eb173daab6e42a55bbeec";
-
+  var myStorage = window.localStorage;
   var currentdate = new Date();
   var datetime =  (currentdate.getMonth() + 1) + "/" + currentdate.getDate() + "/" + currentdate.getFullYear();
   // FUNCTION DEFINITIONS
@@ -15,6 +13,10 @@ $(document).ready(function () {
   function generateDate(modifier){
     var currentdate = new Date();
     return (currentdate.getMonth() + 1) + "/" + (currentdate.getDate() + modifier) + "/" + currentdate.getFullYear();
+  }
+
+  function saveCity(city){
+    myStorage.setItem(city, city);
   }
 
   function getUVIndex(lon, lat) {
@@ -111,5 +113,12 @@ $(document).ready(function () {
     console.log(city)
     renderCurrentWeather(city)
     renderFiveDay(city)
+    saveCity(city)
+    data = Object.entries(myStorage)
+    console.log(data[0][0])
+  });
+
+  $( "#history" ).click(function() {
+    myStorage.clear();
   });
 });
