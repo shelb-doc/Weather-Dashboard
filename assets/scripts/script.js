@@ -53,13 +53,10 @@ $(document).ready(function () {
   function renderCurrentWeather(city){
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=" +
     APIKey;
-    // myStorage.setItem("current", city);
     $.ajax({
       url: queryURL,
       method: "GET",
-    }).then(function (response) {
-      // console.log(queryURL);
-      // console.log(response);
+    }).done(function (response) {
       var iconUrl =
         "https://api.openweathermap.org/img/w/" +
         response.weather[0].icon +
@@ -74,13 +71,17 @@ $(document).ready(function () {
       $("#wind").text(response.wind.speed + " MPH");
       $("#heatIndex").text(heatIndex.toFixed(2) + " °F");
       getUVIndex(response.coord.lon, response.coord.lat);
-      // console.log("Wind Speed: " + response.wind.speed);
-      // console.log(iconUrl);
-      // console.log("Humidity: " + response.main.humidity);
-      // console.log("longitude: " + response.coord.lon);
-      // console.log("latitude: " + response.coord.lat);
-      // console.log("Temperature (F): " + tempF);
-      // console.log("Heat Index: " + response.main.feels_like);
+      renderFiveDay(city)
+    }).fail(function () {
+      $("#city").text( city + " is not a valid city.");
+      $("#iconImg").attr("src", "./assets/images/x.svg");
+      $("#tempF").text(" ");
+      $("#humidity").text(" ");
+      $("#wind").text(" ");
+      $("#heatIndex").text(" ");
+      $( "#days-container" ).empty();
+      $("#UVIndex").text(" ");
+      $("#UVIndex").removeClass();
     });
   }
 
@@ -91,7 +92,7 @@ $(document).ready(function () {
     $.ajax({
       url: queryURL,
       method: "GET",
-    }).then(function (response) {
+    }).done(function (response) {
       for (i=1; i<=5; i++){
         currentInfo = response.list[i-1]
         var iconUrl = "https://api.openweathermap.org/img/w/" +
@@ -131,13 +132,13 @@ $(document).ready(function () {
         values[keys[i]] =  myStorage.getItem(keys[i]) ;
     }
     return values;
-}
+  }
 
   // FUNCTION CALLS
   pastData = allStorage()
   renderCurrentWeather(myStorage.getItem("current"))
-  renderFiveDay(myStorage.getItem("current"))
   renderhistory(pastData)
+
   // EVENT LISTENERS
   $("#history").on('click',"button", function (event) {
     event.preventDefault();
@@ -145,7 +146,7 @@ $(document).ready(function () {
     console.log(event.target.innerText)
     saveCity(city)
     renderCurrentWeather(city)
-    renderFiveDay(city)
+    // renderFiveDay(city)
     pastData = allStorage()
     renderhistory(pastData)
   });
@@ -155,7 +156,7 @@ $(document).ready(function () {
     var city = $("#city-input").val();
     saveCity(city)
     renderCurrentWeather(city)
-    renderFiveDay(city)
+    // renderFiveDay(city)
     pastData = allStorage()
     renderhistory(pastData)
     $("#city-input").val("");
