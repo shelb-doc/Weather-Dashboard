@@ -11,3 +11,34 @@ body{
 h5{
     justify-content: center;
 }
+
+.cityTitle{
+    padding: 10px 0;
+}
+
+.cityTitle img{
+    display: inline-block;
+    width: 75px;
+    height: 75px;
+    margin-top: -13px;
+}
+
+
+.cityTitle h1{
+    display: inline;
+    
+}
+
+.lowUV {
+    background-color: #77dd77;
+}
+
+.mediumUV  {
+    background-color: #ffee00;
+    
+}
+
+.highUV  {
+    background-color: #f5433d;
+    
+}

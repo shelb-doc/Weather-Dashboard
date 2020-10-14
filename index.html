@@ -55,15 +55,17 @@
     <!-- city info container -->
     <div class="todaysWeather col-md-9 pt-3">
     <div class="bg-light p-3">
-        <h2 class="justify-content-center text-dark" id="city"></h2>
-        <img id="iconImg" src="" />
+        <div class="cityTitle" >
+          <h1 class="" id="city"></h1>
+          <img id="iconImg" src="" />
+        </div>
         <div class="row">
         <div class="col-6">
-            <p id="tempF"></p>
-            <p id="humidity"></p>
-            <p id="wind"></p>
-            <p id="heatIndex"></p>
-            <p id="UVIndex"></p>
+            <div>Temperature: <span id="tempF"></span> </div>
+            <div>Humidity: <span id="humidity"></span> </div>
+            <div>Wind Speed: <span id="wind"></span> </div>
+            <div>Heat Index: <span id="heatIndex"></span> </div>
+            <div>UV Index: <span id="UVIndex"></span> </div>
         </div>
         </div>
     </div>
