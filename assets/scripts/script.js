@@ -16,8 +16,11 @@ $(document).ready(function () {
   }
 
   function saveCity(city){
-    currentCity = myStorage.getItem("current").toLowerCase()
-    myStorage.setItem(currentCity, currentCity);
+    if (!(myStorage.getItem("current") === null) ) {
+      currentCity = myStorage.getItem("current").toLowerCase()
+      myStorage.setItem(currentCity, currentCity);
+    }
+    myStorage.setItem("current", city.toLowerCase());
     myStorage.setItem(city.toLowerCase(), city.toLowerCase());
   }
 
@@ -50,7 +53,7 @@ $(document).ready(function () {
   function renderCurrentWeather(city){
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=" +
     APIKey;
-    myStorage.setItem("current", city);
+    // myStorage.setItem("current", city);
     $.ajax({
       url: queryURL,
       method: "GET",
