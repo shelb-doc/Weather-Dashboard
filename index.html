@@ -17,7 +17,7 @@
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
     crossorigin="anonymous"
     />
-
+    <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
@@ -31,20 +31,21 @@
     <div class="col-3 left_div justify-content-center pt-3 bg-light">
       <div class="search-div mb-4">
         <h5 class="pt-2 pl-3">Search by City</h5>
-        <div class="input-group mb-2">
+        <form id="userInput" class="input-group mb-2">
           <input
             id="city-input"
             type="text"
             class="form-control"
             placeholder="Enter City Name"
             aria-label="Enter City Name"
+            required
           />
           <div class="input-group-append">
-            <button class="btn btn-info" type="button" id="search-button">
+            <button class="btn btn-info" type="submit" id="search-button">
               <i class="fas fa-magic"></i>
             </button>
           </div>
-        </div>
+        </form>
         <button class="btn btn-info mb-3" type="button" id="clear-history">
           Clear History
         </button>
@@ -72,26 +73,7 @@
     <div class="p-3">
         <h3 class="fiveDay">5-Day Forecast</h3>
         <!-- Day 1 -->
-        <div class="card-deck text-center">
-        <div class="day-one">
-            <div class="card-body" id="day-1"></div>
-        </div>
-        <!-- Day - 2 -->
-        <div class="day-two">
-            <div class="card-body" id="day-2"></div>
-        </div>
-        <!-- Day - 3 -->
-        <div class="day-three">
-            <div class="card-body" id="day-3"></div>
-        </div>
-        <!-- Day - 4 -->
-        <div class="day-four">
-            <div class="card-body" id="day-4"></div>
-        </div>
-        <!-- Day - 5 -->
-        <div class="day-five">
-            <div class="card-body" id="day-5"></div>
-        </div>
+        <div id="days-container" class="card-deck">
         </div>
     </div>
     </div>
