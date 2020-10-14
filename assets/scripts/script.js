@@ -1,20 +1,23 @@
 $(document).ready(function () {
-  console.log("This is loading!");
-  // JS VARIABLES
+
+// JS VARIABLES
   var APIKey = "a06ddccb5d8eb173daab6e42a55bbeec";
   var myStorage = window.localStorage;
   var currentdate = new Date();
   var datetime =  (currentdate.getMonth() + 1) + "/" + currentdate.getDate() + "/" + currentdate.getFullYear();
-  // FUNCTION DEFINITIONS
+
+// FUNCTION DEFINITIONS
   function kToF(temp) {
     return (temp - 273.15) * 1.8 + 32;
   }
 
+  // renders the date and displays next to the city 
   function generateDate(modifier){
     var currentdate = new Date();
     return (currentdate.getMonth() + 1) + "/" + (currentdate.getDate() + modifier) + "/" + currentdate.getFullYear();
   }
 
+  // saves city in local storage
   function saveCity(city){
     if (!(myStorage.getItem("current") === null) ) {
       currentCity = myStorage.getItem("current").toLowerCase()
@@ -24,6 +27,7 @@ $(document).ready(function () {
     myStorage.setItem(city.toLowerCase(), city.toLowerCase());
   }
 
+// gets the UV Index from the API and displays then color codes the levels
   function getUVIndex(lon, lat) {
     var queryURL =
       "https://api.openweathermap.org/data/2.5/uvi?lat=" +
@@ -49,7 +53,8 @@ $(document).ready(function () {
       } 
     });
   }
-  
+
+//  renders the weather from the api call 
   function renderCurrentWeather(city){
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=" +
     APIKey;
@@ -63,7 +68,8 @@ $(document).ready(function () {
         ".png";
       var tempF = kToF(response.main.temp);
       var heatIndex = kToF(response.main.feels_like);
-      // Update the UI with the current weather data.
+
+// Update the UI with the current weather data.
       $("#city").text( response.name + " " + datetime );
       $("#iconImg").attr("src", iconUrl);
       $("#tempF").text(tempF.toFixed(2) + " °F");
@@ -85,6 +91,7 @@ $(document).ready(function () {
     });
   }
 
+// renders the five dar forcast and displays on the screen
   function renderFiveDay(city){
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q="+ city +"&appid=" +
     APIKey;
@@ -111,6 +118,7 @@ $(document).ready(function () {
     });
   }
 
+// generates the city search history, makes a dictionary, then displays the cities in a button
   function renderhistory(dict){
     $( "#history" ).empty();
     i = dict.length;
@@ -124,6 +132,7 @@ $(document).ready(function () {
     });
   }
 
+// storage call
   function allStorage() {
     var values = {};
     keys = Object.keys(myStorage),
@@ -140,28 +149,27 @@ $(document).ready(function () {
   renderhistory(pastData)
 
   // EVENT LISTENERS
+  // listens the selection on the city history 
   $("#history").on('click',"button", function (event) {
     event.preventDefault();
     city = event.target.innerText;
     console.log(event.target.innerText)
     saveCity(city)
     renderCurrentWeather(city)
-    // renderFiveDay(city)
     pastData = allStorage()
     renderhistory(pastData)
   });
-
+// listens for the search city input
   $("#userInput").on("submit", function (event) {
     event.preventDefault();
     var city = $("#city-input").val();
     saveCity(city)
     renderCurrentWeather(city)
-    // renderFiveDay(city)
     pastData = allStorage()
     renderhistory(pastData)
     $("#city-input").val("");
   });
-
+// clears history
   $( "#clear-history" ).click(function() {
     pastData = allStorage()
     Object.keys(pastData).forEach(function(key) {
