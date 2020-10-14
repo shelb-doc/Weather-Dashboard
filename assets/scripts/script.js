@@ -16,7 +16,9 @@ $(document).ready(function () {
   }
 
   function saveCity(city){
-    myStorage.setItem(city, city);
+    currentCity = myStorage.getItem("current").toLowerCase()
+    myStorage.setItem(currentCity, currentCity);
+    myStorage.setItem(city.toLowerCase(), city.toLowerCase());
   }
 
   function getUVIndex(lon, lat) {
@@ -48,6 +50,7 @@ $(document).ready(function () {
   function renderCurrentWeather(city){
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=" +
     APIKey;
+    myStorage.setItem("current", city);
     $.ajax({
       url: queryURL,
       method: "GET",
@@ -63,10 +66,10 @@ $(document).ready(function () {
       // Update the UI with the current weather data.
       $("#city").text( response.name + " " + datetime );
       $("#iconImg").attr("src", iconUrl);
-      $("#tempF").text(tempF.toFixed(2) + " F");
+      $("#tempF").text(tempF.toFixed(2) + " °F");
       $("#humidity").text(response.main.humidity + "%");
       $("#wind").text(response.wind.speed + " MPH");
-      $("#heatIndex").text(heatIndex.toFixed(2) + " F");
+      $("#heatIndex").text(heatIndex.toFixed(2) + " °F");
       getUVIndex(response.coord.lon, response.coord.lat);
       // console.log("Wind Speed: " + response.wind.speed);
       // console.log(iconUrl);
@@ -95,8 +98,8 @@ $(document).ready(function () {
         var humidity = currentInfo.main.humidity + "%"
         var content = '<div class="card"><div class="card-body">'
         content += '<h5 class="card-title">' + (generateDate(i)) + '</h5>';
-        content += '<img src="'+ iconUrl +'" />';
-        content += '<span>Temperature: ' + tempF.toFixed(2) + ' F</span><br>';
+        content += '<img src="'+ iconUrl +'" /><br>';
+        content += '<span>Temperature: ' + tempF.toFixed(2) + ' &deg;F</span><br>';
         content += '<span>Humidity: ' + humidity + '</span>';
         content += '</div></div>';
         $('#days-container').append(content);
@@ -104,21 +107,67 @@ $(document).ready(function () {
     });
   }
 
+  function renderhistory(dict){
+    $( "#history" ).empty();
+    i = dict.length;
+    Object.keys(dict).forEach(function(key) {
+      if(key != "current"){
+        var content = '<button class="btn btn-outline-dark btn-md btn-block" type="button">'
+        content += dict[key].charAt(0).toUpperCase() + dict[key].slice(1);
+        content += '</button>';
+        $('#history').append(content);
+      }
+    });
+  }
+
+  function allStorage() {
+    var values = {};
+    keys = Object.keys(myStorage),
+    i = keys.length;
+    while ( i-- ) {
+        values[keys[i]] =  myStorage.getItem(keys[i]) ;
+    }
+    return values;
+}
+
   // FUNCTION CALLS
-  
+  pastData = allStorage()
+  renderCurrentWeather(myStorage.getItem("current"))
+  renderFiveDay(myStorage.getItem("current"))
+  renderhistory(pastData)
   // EVENT LISTENERS
-  $("form").on("submit", function (event) {
+  $("#history").on('click',"button", function (event) {
     event.preventDefault();
-    var city = $("#city-input").val();
-    console.log(city)
+    city = event.target.innerText;
+    console.log(event.target.innerText)
+    saveCity(city)
     renderCurrentWeather(city)
     renderFiveDay(city)
-    saveCity(city)
-    data = Object.entries(myStorage)
-    console.log(data[0][0])
+    pastData = allStorage()
+    renderhistory(pastData)
   });
 
-  $( "#history" ).click(function() {
-    myStorage.clear();
+  $("#userInput").on("submit", function (event) {
+    event.preventDefault();
+    var city = $("#city-input").val();
+    saveCity(city)
+    renderCurrentWeather(city)
+    renderFiveDay(city)
+    pastData = allStorage()
+    renderhistory(pastData)
+    $("#city-input").val("");
   });
+
+  $( "#clear-history" ).click(function() {
+    pastData = allStorage()
+    Object.keys(pastData).forEach(function(key) {
+      if(key != "current"){
+        myStorage.removeItem(key)
+      }
+    });
+    location.reload();
+  });
+
+
+
 });
